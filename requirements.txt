@@ -1,0 +1,6 @@
+streamlit
+astropy
+numpy
+pandas
+timezonefinder
+matplotlib
