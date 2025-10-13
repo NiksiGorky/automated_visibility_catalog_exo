@@ -388,7 +388,7 @@ with preview_container:
                 
                 if has_valid_magnitude:
                     with right:
-                        magn=st.number_input('magn >', value=None, key="mag")
+                        magn=st.number_input('magnitude >', value=None, key="mag")
                 
                 # Add consistent spacing after filters
                 st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
