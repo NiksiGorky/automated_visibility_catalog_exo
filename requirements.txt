@@ -4,3 +4,4 @@ numpy
 pandas
 timezonefinder
 matplotlib
+base64
