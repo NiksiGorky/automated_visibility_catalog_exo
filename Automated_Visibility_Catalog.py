@@ -89,7 +89,7 @@ def read_data(file_path):
 #    coord_col = next((c for c in file.columns if 'coord' in c), None)
 
     name_col = next((c for c in file.columns if c == 'star_name'), None)
-    mag_col = next((c for c in file.columns if 'mag_v' in), None)
+    mag_col = next((c for c in file.columns if 'mag_v' in c), None)
     ra_col = next((c for c in file.columns if c == 'ra'), None)
     dec_col = next((c for c in file.columns if c == 'dec'), None)
     coord_col = next((c for c in file.columns if c == 'coord'), None)
