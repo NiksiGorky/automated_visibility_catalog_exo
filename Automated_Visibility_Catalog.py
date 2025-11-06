@@ -82,11 +82,17 @@ def read_data(file_path):
     
     file.columns = [c.strip().lower() for c in file.columns]
 
-    name_col = next((c for c in file.columns if 'name' in c), None)
-    mag_col = next((c for c in file.columns if 'mag' in c), None)
-    ra_col = next((c for c in file.columns if 'ra' in c), None)
-    dec_col = next((c for c in file.columns if 'dec' in c), None)
-    coord_col = next((c for c in file.columns if 'coord' in c), None)
+#    name_col = next((c for c in file.columns if 'name' in c), None)
+#    mag_col = next((c for c in file.columns if 'mag' in c), None)
+#    ra_col = next((c for c in file.columns if 'ra' in c), None)
+#    dec_col = next((c for c in file.columns if 'dec' in c), None)
+#    coord_col = next((c for c in file.columns if 'coord' in c), None)
+
+    name_col = next((c for c in file.columns if c == 'star_name'), None)
+    mag_col = next((c for c in file.columns if 'mag_v' in), None)
+    ra_col = next((c for c in file.columns if c == 'ra'), None)
+    dec_col = next((c for c in file.columns if c == 'dec'), None)
+    coord_col = next((c for c in file.columns if c == 'coord'), None)
 
     if ra_col and dec_col:
         ra = file[ra_col]
