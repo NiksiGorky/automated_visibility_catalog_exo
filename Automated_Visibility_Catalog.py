@@ -28,25 +28,13 @@ st.markdown("""
     div[data-testid="stTextInput"] label p {
         font-size: 16px !important;
     }
-    .stTextInput {
-        width: 275px !important;
-    }
-            
-    /* Style of the date input */
-    div[data-testid="stDateInput"] label p {
-        font-size: 16px !important;
-    }
-    .stDateInput {
-        width: 275px !important;
-    }
-            
-    /* Style for file uploader */
-    div[data-testid="stFileUploader"] {
-        width: 300px !important;
-    }
-    div[data-testid="stFileUploader"] section {
-        width: 425px !important;
-    }
+.stTextInput,
+.stDateInput,
+div[data-testid="stFileUploader"] {
+    width: 100% !important;
+    max-width: 420px;
+}
+
     
     /* Change file uploader label text size */
     div[data-testid="stFileUploader"] label p {
