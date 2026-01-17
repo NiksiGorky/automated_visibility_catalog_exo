@@ -45,7 +45,7 @@ div[data-testid="stFileUploader"] {
 
 """, unsafe_allow_html=True)
 
-for key in ["Data", "has_valid_magnitude", "utc_shift", "Loc", "timezone_local", "Star_Observability"]:
+for key in ["Data", "utc_shift", "Loc", "timezone_local", "Star_Observability"]:
     st.session_state.setdefault(key, None)
 
 def is_numeric(s):
@@ -65,8 +65,6 @@ def vspace(units=1):
 
 @st.cache_data
 def read_data(file_path):
-
-    has_valid_magnitude = False
 
     try:
         file=pd.read_csv(file_path, sep=None, engine='python')
@@ -117,12 +115,12 @@ def read_data(file_path):
         mag = file[mag_col]
         
         # Check if magnitude values are valid
-        if (pd.to_numeric(mag, errors="coerce").notna().all() and
-            not file[[mag_col]].isnull().any().any()):
-            has_valid_magnitude = True
-        else:
-            # Show warning but still include the column
-            st.warning("Warning: MAG column contains invalid values.", width=290)
+        valid_mag = pd.to_numeric(mag, errors="coerce").notna().all()
+
+        if not valid_mag:
+            st.warning(
+                "Warning: MAG column contains invalid or missing values.", width=290
+             )
         
         # Always create DataFrame with mag column if it exists
         Data = pd.DataFrame({
@@ -139,7 +137,7 @@ def read_data(file_path):
         })
         
     del file
-    return Data, has_valid_magnitude
+    return Data
 
 @st.cache_data
 def Observability(Data, _utc_shift,date, _Loc, timezone_local):
@@ -333,9 +331,8 @@ with container:
         if uploaded_file is not None:
             try:
 
-                Data, has_valid_magnitude = read_data(uploaded_file)
+                Data = read_data(uploaded_file)
                 st.session_state["Data"] = Data
-                st.session_state["has_valid_magnitude"] = has_valid_magnitude
                 st.success("File Loaded Successfully", width=315)
 
             except Exception as e:
@@ -388,9 +385,8 @@ with preview_container:
                 with left:
                     dur=st.number_input('Duration >', value=None, key="dur")
                 
-                if has_valid_magnitude:
-                    with right:
-                        magn=st.number_input('magnitude >', value=None, key="mag")
+                with right:
+                    magn=st.number_input('magnitude >', value=None, key="mag")
                 
                 # Add consistent spacing after filters
                 vspace()
@@ -420,8 +416,10 @@ with preview_container:
                         if 'Visibility (min)' in Star_Observability.columns and dur is not None:
                             filtered_data = filtered_data[filtered_data['Visibility (min)'] > dur]
 
-                        if magn is not None:
-                            filtered_data = filtered_data[filtered_data['mag'] < magn]
+                        if magn is not None and 'mag' in Star_Observability.columns:
+                            
+                            mag_numeric = pd.to_numeric(filtered_data['mag'], errors='coerce')
+                            filtered_data = filtered_data[mag_numeric.isna() | (mag_numeric < magn)]
 
                         st.session_state["Filtered_Observability"] = filtered_data
                         st.session_state["calculation_done"] = True
