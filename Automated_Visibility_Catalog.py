@@ -54,7 +54,13 @@ def is_numeric(s):
         return True
     except ValueError:
         return False
-    
+
+def vspace(units=1):
+    units = max(0, units)
+    st.markdown(
+        f"<div style='height: {0.6 * units}em;'></div>",
+        unsafe_allow_html=True
+    )
 #Function to read data from a file
 
 @st.cache_data
@@ -340,21 +346,21 @@ with container:
 
         if uploaded_file is not None and lat and long and is_numeric(lat) and is_numeric(long):
 
-            st.markdown("<div style='margin-bottom: 165px;'></div>", unsafe_allow_html=True)
+            vspace(17) 
             with st.expander("Data preview", expanded=False, width=360):
 
                 st.dataframe(Data, height=212)
 
         elif uploaded_file is not None and lat and long:
 
-            st.markdown("<div style='margin-bottom: 115px;'></div>", unsafe_allow_html=True)
+            vspace(12) 
             with st.expander("Data preview", expanded=False, width=360):
 
                 st.dataframe(Data, height=212)
 
         elif uploaded_file is not None:
 
-            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+            vspace(4) 
             with st.expander("Data preview", expanded=False, width=360):
 
                 st.dataframe(Data, height=212)
@@ -371,7 +377,9 @@ with preview_container:
 
             dur=None
             magn=None
-
+            
+            vspace(2)
+            
             checkbox=st.checkbox('Filters', key="filter_checkbox")
 
             if checkbox: #Filter buttons
@@ -385,10 +393,10 @@ with preview_container:
                         magn=st.number_input('magnitude >', value=None, key="mag")
                 
                 # Add consistent spacing after filters
-                st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
+                vspace()
             else:
                 # When filters are not checked, add the same amount of space
-                st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
+                vspace()
 
         with pcols[1]:
                 
@@ -421,11 +429,11 @@ with preview_container:
                         with pcols[2]:
 
                             if checkbox:
-                                st.markdown("<div style='margin-bottom: 148px;'></div>", unsafe_allow_html=True) 
+                                vspace(17) 
                                 with st.expander("Observability preview", expanded=False, width=360):
                                     st.dataframe(filtered_data, height=212)
                             else:
-                                st.markdown("<div style='margin-bottom: 65px;'></div>", unsafe_allow_html=True) 
+                                vspace(8) 
                                 with st.expander("Observability preview", expanded=False, width=360):
                                     st.dataframe(Star_Observability, height=212)
 
