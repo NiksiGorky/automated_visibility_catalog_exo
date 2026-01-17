@@ -349,21 +349,21 @@ with container:
             vspace(17) 
             with st.expander("Data preview", expanded=False, width=360):
 
-                st.dataframe(Data, height=212)
+                st.dataframe(Data, height=210)
 
         elif uploaded_file is not None and lat and long:
 
             vspace(12) 
             with st.expander("Data preview", expanded=False, width=360):
 
-                st.dataframe(Data, height=212)
+                st.dataframe(Data, height=210)
 
         elif uploaded_file is not None:
 
             vspace(4) 
             with st.expander("Data preview", expanded=False, width=360):
 
-                st.dataframe(Data, height=212)
+                st.dataframe(Data, height=210)
 
 preview_container=st.container()
 
