@@ -281,44 +281,18 @@ with container:
     with cols[1]:
 
         if lat and long:
-
             try:
-
-                if ("prev_lat" not in st.session_state
-                    or st.session_state["prev_lat"] != lat
-                    or st.session_state["prev_long"] != long):
-
-                    utc_shift, Loc, timezone_local, tz_string, local_time, utc_shift_p = Coordinates(lat, long)
-                    
-                    st.session_state.update({
-                        "utc_shift": utc_shift,
-                        "Loc": Loc,
-                        "timezone_local": timezone_local,
-                        "prev_lat": lat,
-                        "prev_long": long,
-                        "tz_string": tz_string,
-                        "local_time": local_time,
-                        "utc_shift_p": utc_shift_p
-                    })
-
-                else:
-                    utc_shift = st.session_state["utc_shift"]
-                    Loc = st.session_state["Loc"]
-                    timezone_local = st.session_state["timezone_local"]
-                    tz_string = st.session_state["tz_string"]
-                    local_time = st.session_state["local_time"]
-                    utc_shift_p = st.session_state["utc_shift_p"]
-
-                # Streamlit outputs outside cached function
+                utc_shift, Loc, timezone_local, tz_string, local_time, utc_shift_p = Coordinates(lat, long)
+        
                 st.write("Time zone:", tz_string)
                 st.write("Local time:", local_time.strftime("%H:%M:%S"))
                 st.write("UTC Shift:", utc_shift_p, "h")
-
+        
                 if tz_string.startswith("Etc/GMT"):
-                    st.warning('Location maybe a sea or desert', width=310)
-
+                    st.warning("Location may be a sea or desert", width=310)
+        
             except Exception as e:
-                st.error(f"{e}", width=309)
+                st.error(str(e), width=309)
 
 # Container for the file uploader
 
