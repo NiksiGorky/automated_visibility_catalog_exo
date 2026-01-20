@@ -242,7 +242,7 @@ def add_bg_from_local(image_file):
 # Adding bg image
 add_bg_from_local("milkyway.jpg")
 
-@st.cache_data
+#@st.cache_data
 def Coordinates(lat, long):
     if is_numeric(lat) and is_numeric(long):
 
