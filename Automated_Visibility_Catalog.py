@@ -242,7 +242,7 @@ def add_bg_from_local(image_file):
 # Adding bg image
 add_bg_from_local("milkyway.jpg")
 
-#@st.cache_data
+@st.cache_data
 def Coordinates(lat, long):
     if is_numeric(lat) and is_numeric(long):
 
@@ -252,11 +252,8 @@ def Coordinates(lat, long):
             Loc = EarthLocation(lat=float(lat), lon=float(long))
             tz_string = tf.timezone_at(lat=Loc.lat.deg, lng=Loc.lon.deg)
             timezone_local = ZoneInfo(tz_string)
-            local_time = datetime.datetime.now(timezone_local)
-            utc_shift_p = local_time.utcoffset().total_seconds() / 3600
-            utc_shift = utc_shift_p * u.hour
 
-            return utc_shift, Loc, timezone_local, tz_string, local_time, utc_shift_p
+            return Loc, timezone_local, tz_string
 
         except Exception as e:
             raise ValueError('Please enter valid latitude and longitude')
@@ -288,26 +285,25 @@ with container:
                     or st.session_state["prev_lat"] != lat
                     or st.session_state["prev_long"] != long):
 
-                    utc_shift, Loc, timezone_local, tz_string, local_time, utc_shift_p = Coordinates(lat, long)
+                    Loc, timezone_local, tz_string = Coordinates(lat, long)
                     
                     st.session_state.update({
-                        "utc_shift": utc_shift,
                         "Loc": Loc,
                         "timezone_local": timezone_local,
                         "prev_lat": lat,
                         "prev_long": long,
                         "tz_string": tz_string,
-                        "local_time": local_time,
-                        "utc_shift_p": utc_shift_p
-                    })
+                        })
 
                 else:
-                    utc_shift = st.session_state["utc_shift"]
+
                     Loc = st.session_state["Loc"]
                     timezone_local = st.session_state["timezone_local"]
                     tz_string = st.session_state["tz_string"]
-                    local_time = st.session_state["local_time"]
-                    utc_shift_p = st.session_state["utc_shift_p"]
+
+                local_time = datetime.datetime.now(timezone_local)
+                utc_shift_p = local_time.utcoffset().total_seconds() / 3600
+                utc_shift = utc_shift_p * u.hour
 
                 # Streamlit outputs outside cached function
                 st.write("Time zone:", tz_string)
