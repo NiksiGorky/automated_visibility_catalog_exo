@@ -45,7 +45,7 @@ div[data-testid="stFileUploader"] {
 
 """, unsafe_allow_html=True)
 
-for key in ["Data", "utc_shift", "Loc", "timezone_local", "Star_Observability"]:
+for key in ["Data", "Loc", "timezone_local", "Star_Observability"]:
     st.session_state.setdefault(key, None)
 
 def is_numeric(s):
@@ -398,7 +398,7 @@ with preview_container:
                         
                         Star_Observability = Observability(
                             st.session_state["Data"],
-                            st.session_state["utc_shift"],
+                            utc_shift,
                             date,
                             st.session_state["Loc"],
                             st.session_state["timezone_local"]
