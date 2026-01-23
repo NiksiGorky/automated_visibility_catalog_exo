@@ -73,7 +73,7 @@ with container:
                 st.error(f"{e}", width=309)
 
     with cols[0]: 
-        ra = st.text_input("Enter your stars RA", key="ra")
+        ra = st.text_input("Enter your stars RA in signed DD format", key="ra")
     
     with cols[1]: 
 
@@ -81,10 +81,10 @@ with container:
             
             vspace(13)
 
-            dec = st.text_input("Enter your stars DEC", key="dec")
+            dec = st.text_input("Enter your stars DEC in signed DD format", key="dec")
 
         else:
-            dec = st.text_input("Enter your stars DEC", key="dec")
+            dec = st.text_input("Enter your stars DEC in signed DD format", key="dec")
 
     if lat and long and ra and dec:
 
