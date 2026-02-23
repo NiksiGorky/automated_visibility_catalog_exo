@@ -25,10 +25,10 @@ with container:
     cols = st.columns([0.333,0.333,0.333])  # Create 4 equal columns
     
     with cols[0]: 
-        lat = st.text_input("Enter your latitude in signed DD format", key="lat")
+        lat = st.text_input("Enter your latitude in signed Decimal Degree format", key="lat")
     
     with cols[1]: 
-        long = st.text_input("Enter your longitude in signed DD format", key="long")
+        long = st.text_input("Enter your longitude in signed Decimal Degree format", key="long")
 
     with cols[2]: 
         date=st.date_input("Select observation date")
