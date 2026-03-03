@@ -168,7 +168,7 @@ with preview_container:
                         # Apply filters
                         filtered_data = Star_Observability.copy()
                         if 'Visibility (min)' in Star_Observability.columns and dur is not None:
-                            filtered_data = filtered_data[filtered_data['Visibility (min)'] > (dur*60)]
+                            filtered_data = filtered_data[filtered_data['Visibility (min)'] > (dur)]
 
                         if magn is not None and 'mag' in Star_Observability.columns:
                             
