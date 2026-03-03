@@ -137,7 +137,7 @@ with preview_container:
                 left,right=st.columns(2)
 
                 with left:
-                    dur=st.number_input('Duration (in hours) >', value=None, key="dur")
+                    dur=st.number_input('Duration >', value=None, key="dur")
                 
                 with right:
                     magn=st.number_input('magnitude >', value=None, key="mag")
@@ -168,7 +168,7 @@ with preview_container:
                         # Apply filters
                         filtered_data = Star_Observability.copy()
                         if 'Visibility (min)' in Star_Observability.columns and dur is not None:
-                            filtered_data = filtered_data[filtered_data['Visibility (min)'] > (dur)]
+                            filtered_data = filtered_data[filtered_data['Visibility (min)'] > dur]
 
                         if magn is not None and 'mag' in Star_Observability.columns:
                             
