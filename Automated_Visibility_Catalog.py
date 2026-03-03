@@ -4,7 +4,7 @@ from utils import add_bg_from_local
 st.set_page_config(page_title="Automated Visibility Catalog", layout="wide")
 
 st.markdown(
-    "<h1 style='text-align: center;'>🔭 Automated Visibility Catalog For Exoplanet Host Stars</h1>",
+    "<h1 style='text-align: center;'>🔭 Automated Visibility Catalog For Stars</h1>",
     unsafe_allow_html=True
 )
 
